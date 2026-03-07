@@ -23,6 +23,7 @@ export default function CarsDashboardClient() {
     const [status, setStatus] = useState('available');
 
     const [file, setFile] = useState<File | null>(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
     const fetchCars = async () => {
         setLoading(true);
@@ -35,6 +36,16 @@ export default function CarsDashboardClient() {
         fetchCars();
     }, []);
 
+    useEffect(() => {
+        if (!file) {
+            setPreviewUrl(null);
+            return;
+        }
+        const url = URL.createObjectURL(file);
+        setPreviewUrl(url);
+        return () => URL.revokeObjectURL(url);
+    }, [file]);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -42,23 +53,39 @@ export default function CarsDashboardClient() {
         let finalImageUrl = featuredImage;
 
         if (file) {
-            const fileExt = file.name.split('.').pop();
-            const fileName = `${Math.random()}.${fileExt}`;
-            const { error: uploadError } = await supabase.storage
-                .from('cars')
-                .upload(fileName, file);
+            try {
+                const fileExt = file.name.split('.').pop() || 'jpg';
+                const fileName = `${Date.now()}-${Math.floor(Math.random() * 1000)}.${fileExt}`;
+                
+                const { error: uploadError } = await supabase.storage
+                    .from('cars')
+                    .upload(fileName, file, {
+                        cacheControl: '3600',
+                        upsert: false
+                    });
 
-            if (uploadError) {
-                alert('Erro ao fazer upload: ' + uploadError.message);
+                if (uploadError) {
+                    console.error('Erro de upload:', uploadError);
+                    alert('Erro ao fazer upload: ' + uploadError.message);
+                    setIsSubmitting(false);
+                    return;
+                }
+
+                const { data } = supabase.storage
+                    .from('cars')
+                    .getPublicUrl(fileName);
+
+                if (data?.publicUrl) {
+                    finalImageUrl = data.publicUrl;
+                } else {
+                    console.error('Não foi possível obter a URL pública');
+                }
+            } catch (err: any) {
+                console.error('Exceção no upload:', err);
+                alert('Erro inesperado no upload: ' + err.message);
                 setIsSubmitting(false);
                 return;
             }
-
-            const { data: publicUrlData } = supabase.storage
-                .from('cars')
-                .getPublicUrl(fileName);
-
-            finalImageUrl = publicUrlData.publicUrl;
         }
 
         const newCar: CarInsert = {
@@ -173,6 +200,20 @@ export default function CarsDashboardClient() {
                             type="file" accept="image/*" onChange={e => setFile(e.target.files?.[0] || null)}
                             className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-red file:text-white hover:file:bg-rose-700"
                         />
+                        
+                        {previewUrl && (
+                            <div className="mt-2 relative w-full h-40 rounded-lg overflow-hidden border border-white/10">
+                                <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
+                                <button 
+                                    type="button"
+                                    onClick={() => setFile(null)}
+                                    className="absolute top-2 right-2 bg-black/50 hover:bg-black/80 text-white p-1 rounded-full transition-colors"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+                        )}
+
                         <p className="text-xs text-text-dim mt-2">Ou digite uma URL direta abaixo:</p>
                         <input
                             type="text" value={featuredImage} onChange={e => setFeaturedImage(e.target.value)}
