@@ -1,0 +1,59 @@
+{
+    "Hero": {
+        "title1": "精密工学。",
+        "title2": "時代を超越したデザイン。"
+    },
+    "Navigation": {
+        "top": "トップ",
+        "services": "サービス",
+        "carSales": "車の売買",
+        "company": "会社概要",
+        "contact": "お問い合わせ",
+        "getQuote": "見積もり"
+    },
+    "Services": {
+        "heading_pt1": "自動車サービス &",
+        "heading_pt2": "車の売買",
+        "subtitle": "私たちは卓越した技術であなたの車をお預かりします。信頼、透明性、完璧さが私たちの仕事の基盤です。",
+        "shaken": {
+            "title": "車検",
+            "description": "日本での義務的な検査。"
+        },
+        "maintenance": {
+            "title": "メンテナンス",
+            "description": "メンテナンス、板金塗装、コーティングなど。"
+        },
+        "customization": {
+            "title": "カスタマイズ",
+            "description": "カスタム改造と改善。"
+        }
+    },
+    "Contact": {
+        "findUs": "アクセス",
+        "us": "",
+        "address": "神奈川県横浜市都筑区8-1-1",
+        "hours": "月曜日 - 土曜日, 10:00 - 19:00",
+        "sundayClosed": "日曜定休",
+        "openMaps": "Google Mapsで開く",
+        "getInTouch": "お気軽に",
+        "today": "お問い合わせください",
+        "contactSub": "弊社の車に関するご質問や、サービスの御見積もりが必要ですか？お気軽にお問い合わせください。",
+        "fullName": "お名前",
+        "email": "メールアドレス",
+        "message": "メッセージ",
+        "send": "送信する",
+        "whatsapp": "またはWhatsAppで直接メッセージをお送りください"
+    },
+    "Inventory": {
+        "title": "注目の在庫",
+        "subtitle": "厳選されたラグジュアリーとパフォーマンスの車両。",
+        "filters": {
+            "make": "メーカー",
+            "model": "モデル",
+            "year": "年式",
+            "all": "すべて"
+        },
+        "viewDetails": "詳細",
+        "noCars": "車両が見つかりませんでした。"
+    }
+}

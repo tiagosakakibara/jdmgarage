@@ -1,0 +1,34 @@
+"use client";
+
+import { Instagram, Facebook, Twitter, Youtube } from 'lucide-react';
+
+export function Footer() {
+    return (
+        <footer className="bg-black border-t border-white/10 py-12 text-sm text-text-dim">
+            <div className="container mx-auto px-4 flex flex-col items-center justify-center gap-8">
+                <div className="flex flex-col items-center text-center">
+                    <h3 className="font-semibold text-white mb-6 uppercase text-xs tracking-wider">Follow Us</h3>
+                    <div className="flex gap-4">
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface-card flex items-center justify-center hover:bg-brand-red hover:text-white transition-all text-text-dim">
+                            <Instagram size={20} />
+                        </a>
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface-card flex items-center justify-center hover:bg-brand-red hover:text-white transition-all text-text-dim">
+                            <Facebook size={20} />
+                        </a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface-card flex items-center justify-center hover:bg-brand-red hover:text-white transition-all text-text-dim">
+                            <Twitter size={20} />
+                        </a>
+                        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface-card flex items-center justify-center hover:bg-brand-red hover:text-white transition-all text-text-dim">
+                            <Youtube size={20} />
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div className="container mx-auto px-4 mt-12 pt-8 border-t border-white/10 flex flex-col items-center justify-center text-center">
+                <p>© {new Date().getFullYear()} JDM GARAGE JAPAN. All rights reserved.</p>
+                <p className="mt-2 text-xs text-white/50">Designed for Performance.</p>
+            </div>
+        </footer>
+    );
+}

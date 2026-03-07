@@ -1,0 +1,59 @@
+{
+    "Hero": {
+        "title1": "Precision Engineering.",
+        "title2": "Timeless Design."
+    },
+    "Navigation": {
+        "top": "Top",
+        "services": "Serviços",
+        "carSales": "Compra e Venda",
+        "company": "Sobre Nós",
+        "contact": "Contato",
+        "getQuote": "Orçamento"
+    },
+    "Services": {
+        "heading_pt1": "Serviços Automotivos &",
+        "heading_pt2": "Compra e Venda",
+        "subtitle": "Cuidamos do seu carro com excelência. Confiança, transparência e perfeição são as bases do nosso trabalho.",
+        "shaken": {
+            "title": "Shaken Inspection",
+            "description": "Inspeção obrigatória no Japão."
+        },
+        "maintenance": {
+            "title": "Maintenance",
+            "description": "Manutenção, funilaria e pintura, vitrificação, etc."
+        },
+        "customization": {
+            "title": "Customization",
+            "description": "Modificações e melhorias personalizadas."
+        }
+    },
+    "Contact": {
+        "findUs": "Encontre",
+        "us": "Nos",
+        "address": "8-1-1 Tsuzuki, Yokohama, Kanagawa, Japan",
+        "hours": "Segunda - Sábado, 10:00 - 19:00",
+        "sundayClosed": "Domingo Fechado",
+        "openMaps": "Abrir no Google Maps",
+        "getInTouch": "Entre Em Contato",
+        "today": "Hoje",
+        "contactSub": "Tem uma pergunta sobre um de nossos carros ou precisa de um orçamento para serviço? Entre em contato conosco.",
+        "fullName": "Nome Completo",
+        "email": "Endereço de Email",
+        "message": "Sua Mensagem",
+        "send": "Enviar Mensagem",
+        "whatsapp": "Ou nos envie uma mensagem diretamente no WhatsApp"
+    },
+    "Inventory": {
+        "title": "Estoque em Destaque",
+        "subtitle": "Veículos de luxo e performance selecionados.",
+        "filters": {
+            "make": "Marca",
+            "model": "Modelo",
+            "year": "Ano",
+            "all": "Todos"
+        },
+        "viewDetails": "Ver",
+        "noCars": "Nenhum veículo encontrado."
+    }
+}
