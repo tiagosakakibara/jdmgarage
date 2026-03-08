@@ -40,12 +40,13 @@
         "contactSub": "Tem uma pergunta sobre um de nossos carros ou precisa de um orçamento para serviço? Entre em contato conosco.",
         "fullName": "Nome Completo",
         "email": "Endereço de Email",
+        "phone": "Número de Telefone",
         "message": "Sua Mensagem",
         "send": "Enviar Mensagem",
         "whatsapp": "Ou nos envie uma mensagem diretamente no WhatsApp"
     },
     "Inventory": {
-        "title": "Estoque em Destaque",
+        "title": "Vendas de Automóveis",
         "subtitle": "Veículos de luxo e performance selecionados.",
         "filters": {
             "make": "Marca",

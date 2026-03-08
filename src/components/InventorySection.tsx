@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { createClient } from '@/utils/supabase/client';
 import { Database } from '@/types/supabase';
+import { Link } from '@/i18n/routing';
 import { CarCard } from './CarCard';
 
 type Car = Database['public']['Tables']['cars']['Row'];
@@ -37,8 +38,11 @@ export function InventorySection() {
         <section className="py-24 bg-surface-dark/50 border-t border-b border-white/5" id="inventory">
             <div className="container mx-auto px-4">
                 <div className="flex flex-col mb-12">
-                    <h2 className="text-3xl font-bold text-white mb-4">{t('title')}</h2>
-                    <p className="text-text-dim">{t('subtitle')}</p>
+                    <h2 className="text-3xl font-bold text-white">
+                        <Link href="/inventory" className="hover:text-brand-red transition-colors">
+                            {t('title')}
+                        </Link>
+                    </h2>
                 </div>
 
                 {loading ? (

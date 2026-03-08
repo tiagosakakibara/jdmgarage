@@ -26,7 +26,7 @@ export function LanguageSwitcher() {
             title="Mudar Idioma / 言語を変更"
         >
             <Globe size={18} />
-            <span>{locale === 'pt' ? '日本語' : 'PT'}</span>
+            <span>{locale === 'pt' ? 'PT' : '日本語'}</span>
         </button>
     );
 }

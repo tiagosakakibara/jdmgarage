@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { Database } from '@/types/supabase';
 import { default as NextImage } from 'next/image';
+import { Link } from '@/i18n/routing';
 
 type Car = Database['public']['Tables']['cars']['Row'];
 
@@ -20,7 +21,7 @@ export function CarCard({ car }: CarCardProps) {
     }).format(car.price);
 
     return (
-        <div className="bg-surface-card border border-white/5 rounded-xl overflow-hidden group hover:border-brand-red/50 transition-colors flex flex-col h-full">
+        <Link href="/inventory" className="bg-surface-card border border-white/5 rounded-xl overflow-hidden group hover:border-brand-red/50 transition-colors flex flex-col h-full cursor-pointer">
             <div className="relative h-48 w-full bg-surface-dark overflow-hidden">
                 {car.featured_image ? (
                     <NextImage
@@ -48,6 +49,6 @@ export function CarCard({ car }: CarCardProps) {
                     </button>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }
