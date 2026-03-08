@@ -55,5 +55,12 @@
         },
         "viewDetails": "Ver",
         "noCars": "Nenhum veículo encontrado."
+    },
+    "InventoryPage": {
+        "title": "Compra e Venda",
+        "subtitle": "Encontre o veículo perfeito para o seu estilo de vida.",
+        "sellYourCar": "Quer vender o seu carro?",
+        "sellYourCarDesc": "Oferecemos a melhor avaliação do mercado. Entre em contato para uma cotação sem compromisso.",
+        "contactUs": "Fale Conosco"
     }
 }

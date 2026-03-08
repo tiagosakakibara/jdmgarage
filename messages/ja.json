@@ -55,5 +55,12 @@
         },
         "viewDetails": "詳細",
         "noCars": "車両が見つかりませんでした。"
+    },
+    "InventoryPage": {
+        "title": "車の売買",
+        "subtitle": "あなたのライフスタイルに最適な１台を見つけてください。",
+        "sellYourCar": "お車を売却したいですか？",
+        "sellYourCarDesc": "市場で最高の査定を提供します。お気軽にお見積もりをご依頼ください。",
+        "contactUs": "お問い合わせ"
     }
 }
