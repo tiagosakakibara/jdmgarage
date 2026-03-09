@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { logout } from '@/app/[locale]/(auth)/login/actions';
 
 export default async function DashboardLayout({
     children,
@@ -32,9 +33,14 @@ export default async function DashboardLayout({
                     </Link>
                 </nav>
                 <div className="p-4 border-t border-white/5">
-                    <Link href={`/${locale}`} className="block px-4 py-2 text-center text-sm text-text-dim hover:text-white border border-white/10 rounded-lg transition-colors">
+                    <Link href={`/${locale}`} className="block px-4 py-2 mb-2 text-center text-sm text-text-dim hover:text-white border border-white/10 rounded-lg transition-colors">
                         Voltar ao Site
                     </Link>
+                    <form action={logout}>
+                        <button type="submit" className="w-full block px-4 py-2 text-center text-sm text-brand-red hover:text-white border border-brand-red/30 hover:border-brand-red rounded-lg transition-colors">
+                            Sair do Dashboard
+                        </button>
+                    </form>
                 </div>
             </aside>
 

@@ -1,6 +1,13 @@
 import { login, signup } from './actions';
 
-export default function LoginPage() {
+export default async function LoginPage({
+    searchParams
+}: {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+    const params = await searchParams;
+    const error = params?.error as string | undefined;
+
     return (
         <div className="flex min-h-[90vh] items-center justify-center p-4 bg-surface-dark">
             <div className="w-full max-w-md bg-surface-card p-8 rounded-2xl border border-white/5">
@@ -8,6 +15,12 @@ export default function LoginPage() {
                     <h1 className="text-2xl font-bold text-white mb-2">Auth Portal</h1>
                     <p className="text-text-dim text-sm">Sign in to your account</p>
                 </div>
+
+                {error && (
+                    <div className="bg-brand-red/10 border border-brand-red/50 text-brand-red px-4 py-3 rounded-lg mb-6 text-sm">
+                        {error}
+                    </div>
+                )}
 
                 <form className="space-y-6">
                     <div>

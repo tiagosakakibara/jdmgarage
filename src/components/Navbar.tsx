@@ -29,9 +29,9 @@ export function Navbar() {
                 {/* Actions */}
                 <div className="flex items-center gap-4">
                     <LanguageSwitcher />
-                    <button className="text-text-dim hover:text-white transition-colors p-2 hidden sm:block">
+                    <Link href="/login" className="text-text-dim hover:text-white transition-colors p-2 hidden sm:block">
                         <User size={20} />
-                    </button>
+                    </Link>
                     <button className="text-text-dim hover:text-white transition-colors p-2 hidden sm:block">
                         <Store size={20} />
                     </button>
