@@ -25,6 +25,9 @@ export default async function DashboardLayout({
                     <Link href={`/${locale}/dashboard`} className="block px-4 py-2 text-text-dim hover:text-white hover:bg-white/5 rounded-lg transition-colors">
                         Overview
                     </Link>
+                    <Link href={`/${locale}/dashboard/hero`} className="block px-4 py-2 text-text-dim hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+                        Hero Slider
+                    </Link>
                     <Link href={`/${locale}/dashboard/cars`} className="block px-4 py-2 text-text-dim hover:text-white hover:bg-white/5 rounded-lg transition-colors">
                         Inventário (Cars)
                     </Link>
