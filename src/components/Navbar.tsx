@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { User } from 'lucide-react';
 
+import Image from 'next/image';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function Navbar() {
@@ -13,8 +14,15 @@ export function Navbar() {
         <header className="fixed top-0 left-0 right-0 z-50 bg-surface-dark/90 backdrop-blur-sm border-b border-white/10">
             <div className="container mx-auto px-4 h-20 flex items-center justify-between">
                 {/* Logo */}
-                <Link href="/" className="text-2xl font-bold flex items-center gap-2 text-white">
-                    <span className="text-brand-red">JDM</span> GARAGE
+                <Link href="/" className="flex items-center transition-opacity hover:opacity-80">
+                    <Image 
+                        src="/images/logo.png" 
+                        alt="JDM Garage Logo" 
+                        width={180} 
+                        height={64} 
+                        className="h-14 w-auto object-contain"
+                        priority
+                    />
                 </Link>
 
                 {/* Desktop Nav */}

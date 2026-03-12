@@ -87,23 +87,7 @@ export function HeroSimple({ slides, locale = 'pt' }: HeroSimpleProps) {
                             {slide.description}
                         </p>
                         
-                        <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
-                            <Link
-                                href={slide.primaryLink || '/inventory'}
-                                className="bg-brand-red hover:bg-white text-white hover:text-brand-red px-8 md:px-10 py-3 md:py-4 rounded-xl font-bold text-base md:text-lg transition-all duration-300 shadow-xl shadow-brand-red/20 transform hover:-translate-y-1"
-                            >
-                                {slide.primaryBtn}
-                            </Link>
-                            
-                            {slide.secondaryBtn && (
-                                <Link
-                                    href={slide.secondaryLink || '/contact'}
-                                    className="bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/10 px-8 md:px-10 py-3 md:py-4 rounded-xl font-bold text-base md:text-lg transition-all duration-300 transform hover:-translate-y-1"
-                                >
-                                    {slide.secondaryBtn}
-                                </Link>
-                            )}
-                        </div>
+                        {/* Buttons removed per request */}
                     </>
                 )}
             </div>
