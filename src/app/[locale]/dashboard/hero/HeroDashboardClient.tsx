@@ -298,55 +298,16 @@ export default function HeroDashboardClient() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label className="block text-sm font-medium text-white mb-1">Botão 1</label>
-                            <input
-                                type="text" required value={primaryBtn} onChange={e => setPrimaryBtn(e.target.value)}
-                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-white mb-1">Botão 1 (Japonês)</label>
-                            <input
-                                type="text" value={primaryBtnJa} onChange={e => setPrimaryBtnJa(e.target.value)}
-                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
-                            />
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label className="block text-sm font-medium text-white mb-1">Botão 2</label>
-                            <input
-                                type="text" value={secondaryBtn} onChange={e => setSecondaryBtn(e.target.value)}
-                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-white mb-1">Botão 2 (Japonês)</label>
-                            <input
-                                type="text" value={secondaryBtnJa} onChange={e => setSecondaryBtnJa(e.target.value)}
-                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
-                            />
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label className="block text-sm font-medium text-white mb-1">Link Botão 1</label>
-                            <input
-                                type="text" value={primaryLink} onChange={e => setPrimaryLink(e.target.value)}
-                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-white mb-1">Link Botão 2</label>
-                            <input
-                                type="text" value={secondaryLink} onChange={e => setSecondaryLink(e.target.value)}
-                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
-                            />
-                        </div>
+                    <div className="bg-surface-dark border border-white/10 rounded-lg p-4">
+                        <label className="block text-sm font-medium text-white mb-1">Link do Slide (Imagem & Texto)</label>
+                        <input
+                            type="text" 
+                            value={primaryLink} 
+                            onChange={e => setPrimaryLink(e.target.value)} 
+                            placeholder="Ex: /inventory ou https://..."
+                            className="w-full bg-surface-card border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                        />
+                        <p className="text-[10px] text-text-dim mt-1 italic">Ao clicar em qualquer lugar do slide, o usuário será levado para este link.</p>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">

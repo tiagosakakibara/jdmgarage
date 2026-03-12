@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from '@/i18n/routing';
 
 
 interface HeroSlide {
@@ -18,6 +19,7 @@ interface HeroSlide {
 
 interface HeroSliderProps {
     slides?: HeroSlide[];
+    locale?: string;
 }
 
 const DEFAULT_SLIDES: HeroSlide[] = [
@@ -28,33 +30,15 @@ const DEFAULT_SLIDES: HeroSlide[] = [
         title2: 'Timeless Design.',
         description: 'Excellence in every detail. Discover our curated selection of high-performance vehicles, engineered to thrill.',
         primaryBtn: 'Ver Estoque',
-        secondaryBtn: 'Fale Conosco',
-        primaryLink: '/inventory',
-        secondaryLink: '/contact',
     },
-    {
-        image: 'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&q=80&w=2000',
-        subtitle: 'American Muscle',
-        title1: 'Raw Power.',
-        title2: 'Untamed Spirit.',
-        description: 'Feel the adrenaline with our exclusive collection of iconic American muscle cars.',
-        primaryBtn: 'Explorar',
-        secondaryBtn: 'Agendar Test Drive'
-    },
-    {
-        image: 'https://images.unsplash.com/photo-1563720225384-9d0f4fa9b04f?auto=format&fit=crop&q=80&w=2000',
-        subtitle: 'Luxury SUVs',
-        title1: 'Uncompromising',
-        title2: 'Comfort.',
-        description: 'Elevate your journey with our premium line of luxury SUVs. Where capability meets refinement.',
-        primaryBtn: 'Conheça Mais'
-    }
 ];
 
 const SLICES_COUNT = 12;
 const TRANSITION_DURATION = 1400; // ms
 
-export function HeroSlider({ slides = DEFAULT_SLIDES }: HeroSliderProps) {
+export function HeroSlider({ slides = DEFAULT_SLIDES, locale = 'pt' }: HeroSliderProps) {
+    const router = useRouter();
+    const isJa = locale === 'ja';
     const [activeIndex, setActiveIndex] = useState(0);
     const [transitioningToIndex, setTransitioningToIndex] = useState<number | null>(null);
     const [startAnim, setStartAnim] = useState(false);
@@ -124,10 +108,10 @@ export function HeroSlider({ slides = DEFAULT_SLIDES }: HeroSliderProps) {
     const nextSlideData = transitioningToIndex !== null ? slides[transitioningToIndex] : null;
 
     return (
-        <section className="w-full bg-black flex justify-center border-b border-surface-card bg-surface-dark/20">
-            <div
-                className="relative w-full max-w-[1504px] overflow-hidden bg-black flex items-center justify-center"
-                style={{ aspectRatio: '1504/450' }}
+        <section className={`w-full bg-black flex justify-center border-b border-surface-card bg-surface-dark/20 ${isJa ? 'font-noto' : ''}`}>
+            <div 
+                onClick={() => currentSlide.primaryLink && router.push(currentSlide.primaryLink as any)}
+                className={`relative w-full max-w-[1504px] overflow-hidden bg-black flex items-center justify-center transition-all duration-500 h-[280px] md:h-auto md:aspect-[1504/640] ${currentSlide.primaryLink ? 'cursor-pointer' : 'cursor-default'}`}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onTouchStart={handleTouchStart}
@@ -138,6 +122,7 @@ export function HeroSlider({ slides = DEFAULT_SLIDES }: HeroSliderProps) {
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
                         backgroundImage: `url(${currentSlide.image})`,
+                        backgroundPosition: 'center 50%',
                         imageRendering: 'crisp-edges',
                         transform: 'translateZ(0)'
                     }}
@@ -170,11 +155,12 @@ export function HeroSlider({ slides = DEFAULT_SLIDES }: HeroSliderProps) {
                                         }}
                                     >
                                         <div
-                                            className="absolute top-0 bottom-0 bg-cover bg-center bg-no-repeat"
+                                            className="absolute top-0 bottom-0 bg-cover bg-no-repeat"
                                             style={{
                                                 width: `${SLICES_COUNT * 100}%`,
                                                 left: `${-i * 100}%`,
                                                 backgroundImage: `url(${nextSlideData.image})`,
+                                                backgroundPosition: 'center 50%',
                                                 imageRendering: 'crisp-edges',
                                                 transform: 'translateZ(0)'
                                             }}
@@ -194,8 +180,8 @@ export function HeroSlider({ slides = DEFAULT_SLIDES }: HeroSliderProps) {
                         <div className="absolute inset-0 z-20 shadow-[inset_0_0_150px_rgba(0,0,0,0.6)] pointer-events-none" />
 
                         {/* Content Container */}
-                        <div className="container mx-auto px-4 md:px-12 relative z-30 h-full flex flex-col justify-center">
-                            <div className="max-w-2xl py-4 sm:py-8 mt-[-30px] md:mt-0">
+                        <div className="container mx-auto px-4 md:px-12 relative z-30 h-full flex flex-col justify-center items-start md:items-center">
+                            <div className="max-w-2xl py-4 sm:py-8 mt-[-30px] md:mt-0 text-left md:text-center">
                                 {/* Animated Content wrapper synced with transitions */}
                                 <div
                                     className={`transition-all duration-700 ease-out transform ${transitioningToIndex !== null ? 'opacity-0 translate-y-8 blur-sm' : 'opacity-100 translate-y-0 blur-0'
@@ -215,26 +201,12 @@ export function HeroSlider({ slides = DEFAULT_SLIDES }: HeroSliderProps) {
                                         )}
                                     </h1>
 
-                                    <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-xl mb-4 md:mb-6 drop-shadow-md leading-relaxed line-clamp-2 md:line-clamp-3">
+                                    <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-xl mb-4 md:mb-6 drop-shadow-md leading-relaxed line-clamp-2 md:line-clamp-3 mx-0 md:mx-auto">
                                         {currentSlide.description}
                                     </p>
 
-                                    <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
-                                        <a
-                                            href={currentSlide.primaryLink || '#'}
-                                            className="px-6 py-3 bg-brand-red text-white font-medium hover:bg-red-700 transition-colors text-center shadow-lg shadow-brand-red/20 uppercase tracking-wide text-xs md:text-sm"
-                                        >
-                                            {currentSlide.primaryBtn}
-                                        </a>
-                                        {currentSlide.secondaryBtn && (
-                                            <a
-                                                href={currentSlide.secondaryLink || '#'}
-                                                className="px-6 py-3 bg-white/10 backdrop-blur-md text-white font-medium hover:bg-white/20 transition-colors border border-white/20 text-center uppercase tracking-wide text-xs md:text-sm"
-                                            >
-                                                {currentSlide.secondaryBtn}
-                                            </a>
-                                        )}
-                                    </div>
+                                    {/* Buttons removed per request */}
+
                                 </div>
                             </div>
                         </div>
@@ -248,9 +220,9 @@ export function HeroSlider({ slides = DEFAULT_SLIDES }: HeroSliderProps) {
                         {slides.map((_, idx) => (
                             <button
                                 key={idx}
-                                onClick={() => goToSlide(idx)}
+                                onClick={(e) => { e.stopPropagation(); goToSlide(idx); }}
                                 aria-label={`Go to slide ${idx + 1}`}
-                                className="group relative flex items-center h-8"
+                                className="group relative flex items-center h-8 z-50"
                             >
                                 <span
                                     className={`block h-[3px] transition-all duration-500 rounded-full ${idx === activeIndex
@@ -265,8 +237,8 @@ export function HeroSlider({ slides = DEFAULT_SLIDES }: HeroSliderProps) {
                     {/* Arrows - Hidden on mobile, visible on sm and up */}
                     <div className="hidden sm:flex gap-4">
                         <button
-                            onClick={prevSlide}
-                            className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-colors backdrop-blur-sm"
+                            onClick={(e) => { e.stopPropagation(); prevSlide(); }}
+                            className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-colors backdrop-blur-sm relative z-50"
                             aria-label="Previous slide"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -274,8 +246,8 @@ export function HeroSlider({ slides = DEFAULT_SLIDES }: HeroSliderProps) {
                             </svg>
                         </button>
                         <button
-                            onClick={nextSlide}
-                            className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-colors backdrop-blur-sm"
+                            onClick={(e) => { e.stopPropagation(); nextSlide(); }}
+                            className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-colors backdrop-blur-sm relative z-50"
                             aria-label="Next slide"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -284,6 +256,7 @@ export function HeroSlider({ slides = DEFAULT_SLIDES }: HeroSliderProps) {
                         </button>
                     </div>
                 </div>
+
             </div>
         </section>
     );
