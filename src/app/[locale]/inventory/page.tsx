@@ -86,13 +86,13 @@ export default function InventoryPage() {
                         <p className="text-text-dim mb-8 text-lg">
                             {t('sellYourCarDesc')}
                         </p>
-                        <Link
-                            href="/contact"
+                        <a
+                            href="tel:09017265361"
                             className="inline-flex items-center gap-2 bg-brand-red hover:bg-white text-white hover:text-brand-red font-bold py-3 px-8 rounded-lg transition-all duration-300"
                         >
                             <Phone size={20} />
                             {t('contactUs')}
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>

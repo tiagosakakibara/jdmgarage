@@ -102,42 +102,60 @@ export type Database = {
           secondary_link: string | null
           show_text: boolean
           subtitle: string
+          subtitle_ja: string | null
           title1: string
+          title1_ja: string | null
           title2: string | null
+          title2_ja: string | null
+          description_ja: string | null
+          primary_btn_ja: string | null
+          secondary_btn_ja: string | null
           updated_at: string
         }
         Insert: {
           created_at?: string
           description: string
+          description_ja?: string | null
           display_order?: number
           id?: string
           image: string
           is_active?: boolean
           primary_btn?: string
+          primary_btn_ja?: string | null
           primary_link?: string | null
           secondary_btn?: string | null
+          secondary_btn_ja?: string | null
           secondary_link?: string | null
           show_text?: boolean
           subtitle: string
+          subtitle_ja?: string | null
           title1: string
+          title1_ja?: string | null
           title2?: string | null
+          title2_ja?: string | null
           updated_at?: string
         }
         Update: {
           created_at?: string
           description?: string
+          description_ja?: string | null
           display_order?: number
           id?: string
           image?: string
           is_active?: boolean
           primary_btn?: string
+          primary_btn_ja?: string | null
           primary_link?: string | null
           secondary_btn?: string | null
+          secondary_btn_ja?: string | null
           secondary_link?: string | null
           show_text?: boolean
           subtitle?: string
+          subtitle_ja?: string | null
           title1?: string
+          title1_ja?: string | null
           title2?: string | null
+          title2_ja?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -166,6 +184,27 @@ export type Database = {
           full_name?: string | null
           id?: string
           role?: string | null
+        }
+        Relationships: []
+      }
+      service_content: {
+        Row: {
+          id: string
+          section_key: string
+          image_url: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          section_key: string
+          image_url: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          section_key?: string
+          image_url?: string
+          updated_at?: string
         }
         Relationships: []
       }

@@ -63,5 +63,27 @@
         "sellYourCar": "Quer vender o seu carro?",
         "sellYourCarDesc": "Oferecemos a melhor avaliação do mercado. Entre em contato para uma cotação sem compromisso.",
         "contactUs": "Fale Conosco"
+    },
+    "ServicesPage": {
+        "title": "Nossos Serviços",
+        "subtitle": "Excelência automotiva em cada detalhe. Da manutenção básica à personalização de alto nível.",
+        "shaken": {
+            "title": "Inspeção Shaken",
+            "description": "Realizamos todo o processo de inspeção obrigatória japonesa (Shaken). Nossa equipe garante que seu veículo atenda a todos os requisitos de segurança e emissões exigidos por lei.",
+            "features": ["Pré-inspeção detalhada", "Ajustes técnicos", "Emissão de certificados", "Transporte para o centro de inspeção"]
+        },
+        "maintenance": {
+            "title": "Manutenção & Reparos",
+            "description": "Serviços mecânicos completos para manter seu carro em perfeitas condições. Utilizamos equipamentos de ponta para diagnósticos precisos.",
+            "features": ["Troca de óleo e filtros", "Funilaria e Pintura de alta qualidade", "Mecânica Geral", "Diagnóstico Computadorizado"]
+        },
+        "customization": {
+            "title": "Personalização & Performance",
+            "description": "Transformamos seu veículo de acordo com sua visão. Especialistas em tuning JDM e melhorias de performance.",
+            "features": ["Modificações de Suspensão", "Upgrades de Motor", "Kits Estéticos", "Vitrificação e Detailing"]
+        },
+        "ctaTitle": "Precisa de um serviço específico?",
+        "ctaDesc": "Entre em contato conosco para um orçamento personalizado.",
+        "ctaButton": "Falar Conosco"
     }
 }

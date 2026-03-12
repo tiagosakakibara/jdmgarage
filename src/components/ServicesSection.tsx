@@ -1,9 +1,11 @@
 "use client";
 
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
 
 export function ServicesSection() {
     const t = useTranslations('Services');
+    const tCommon = useTranslations('Inventory');
 
     const services = [
         {
@@ -51,7 +53,7 @@ export function ServicesSection() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                     {services.map((service) => (
                         <div key={service.id} className="bg-surface-card border border-white/5 rounded-2xl p-8 hover:border-brand-red/50 transition-colors flex flex-col items-center text-center">
                             <div className="w-16 h-16 rounded-full bg-brand-red/10 flex items-center justify-center mb-6">
@@ -61,6 +63,15 @@ export function ServicesSection() {
                             <p className="text-text-dim text-sm leading-relaxed">{service.description}</p>
                         </div>
                     ))}
+                </div>
+
+                <div className="text-center">
+                    <Link
+                        href="/services"
+                        className="inline-flex items-center gap-2 bg-brand-red hover:bg-white text-white hover:text-brand-red font-bold py-3 px-8 rounded-lg transition-all duration-300"
+                    >
+                        {tCommon('viewDetails')}
+                    </Link>
                 </div>
             </div>
         </section>

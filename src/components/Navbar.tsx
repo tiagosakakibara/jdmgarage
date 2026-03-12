@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
-import { User, Store } from 'lucide-react';
+import { User } from 'lucide-react';
 
 import { LanguageSwitcher } from './LanguageSwitcher';
 
@@ -31,15 +31,6 @@ export function Navbar() {
                     <LanguageSwitcher />
                     <Link href="/login" className="text-text-dim hover:text-white transition-colors p-2 hidden sm:block">
                         <User size={20} />
-                    </Link>
-                    <button className="text-text-dim hover:text-white transition-colors p-2 hidden sm:block">
-                        <Store size={20} />
-                    </button>
-                    <Link
-                        href="/contact"
-                        className="bg-brand-red text-white px-6 py-2 rounded font-medium hover:bg-rose-700 transition-colors"
-                    >
-                        {t('getQuote')}
                     </Link>
                 </div>
             </div>

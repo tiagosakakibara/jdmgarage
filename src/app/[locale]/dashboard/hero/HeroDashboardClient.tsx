@@ -16,12 +16,18 @@ export default function HeroDashboardClient() {
 
     // Form inputs
     const [subtitle, setSubtitle] = useState('');
+    const [subtitleJa, setSubtitleJa] = useState('');
     const [title1, setTitle1] = useState('');
+    const [title1Ja, setTitle1Ja] = useState('');
     const [title2, setTitle2] = useState('');
+    const [title2Ja, setTitle2Ja] = useState('');
     const [description, setDescription] = useState('');
+    const [descriptionJa, setDescriptionJa] = useState('');
     const [primaryBtn, setPrimaryBtn] = useState('Ver Estoque');
+    const [primaryBtnJa, setPrimaryBtnJa] = useState('在庫を見る');
     const [primaryLink, setPrimaryLink] = useState('/inventory');
     const [secondaryBtn, setSecondaryBtn] = useState('');
+    const [secondaryBtnJa, setSecondaryBtnJa] = useState('');
     const [secondaryLink, setSecondaryLink] = useState('');
     const [featuredImage, setFeaturedImage] = useState('');
     const [displayOrder, setDisplayOrder] = useState('0');
@@ -97,12 +103,18 @@ export default function HeroDashboardClient() {
 
         const newSlide: HeroSlideInsert = {
             subtitle,
+            subtitle_ja: subtitleJa,
             title1,
+            title1_ja: title1Ja,
             title2,
+            title2_ja: title2Ja,
             description,
+            description_ja: descriptionJa,
             primary_btn: primaryBtn,
+            primary_btn_ja: primaryBtnJa,
             primary_link: primaryLink,
             secondary_btn: secondaryBtn || null,
+            secondary_btn_ja: secondaryBtnJa || null,
             secondary_link: secondaryLink || null,
             image: finalImageUrl,
             display_order: parseInt(displayOrder) || 0,
@@ -135,13 +147,19 @@ export default function HeroDashboardClient() {
     const resetForm = () => {
         setEditingId(null);
         setSubtitle('');
+        setSubtitleJa('');
         setTitle1('');
+        setTitle1Ja('');
         setTitle2('');
+        setTitle2Ja('');
         setDescription('');
+        setDescriptionJa('');
         setFeaturedImage('');
         setPrimaryBtn('Ver Estoque');
+        setPrimaryBtnJa('在庫を見る');
         setPrimaryLink('/inventory');
         setSecondaryBtn('');
+        setSecondaryBtnJa('');
         setSecondaryLink('');
         setDisplayOrder('0');
         setIsActive(true);
@@ -152,12 +170,18 @@ export default function HeroDashboardClient() {
     const handleEdit = (slide: HeroSlide) => {
         setEditingId(slide.id);
         setSubtitle(slide.subtitle);
+        setSubtitleJa(slide.subtitle_ja || '');
         setTitle1(slide.title1);
+        setTitle1Ja(slide.title1_ja || '');
         setTitle2(slide.title2 || '');
+        setTitle2Ja(slide.title2_ja || '');
         setDescription(slide.description);
+        setDescriptionJa(slide.description_ja || '');
         setPrimaryBtn(slide.primary_btn);
+        setPrimaryBtnJa(slide.primary_btn_ja || '');
         setPrimaryLink(slide.primary_link || '');
         setSecondaryBtn(slide.secondary_btn || '');
+        setSecondaryBtnJa(slide.secondary_btn_ja || '');
         setSecondaryLink(slide.secondary_link || '');
         setFeaturedImage(slide.image);
         setDisplayOrder(slide.display_order.toString());
@@ -209,47 +233,83 @@ export default function HeroDashboardClient() {
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label className="block text-sm font-medium text-white mb-1">Subtítulo (Vermelho)</label>
-                        <input
-                            type="text" required value={subtitle} onChange={e => setSubtitle(e.target.value)} placeholder="Ex: American Muscle"
-                            className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
-                        />
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Subtítulo (Vermelho)</label>
+                            <input
+                                type="text" required value={subtitle} onChange={e => setSubtitle(e.target.value)} placeholder="Ex: American Muscle"
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Subtítulo (Japonês)</label>
+                            <input
+                                type="text" value={subtitleJa} onChange={e => setSubtitleJa(e.target.value)} placeholder="Ex: アメリカンマッスル"
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <label className="block text-sm font-medium text-white mb-1">Título Principal (Linha 1)</label>
-                        <input
-                            type="text" required value={title1} onChange={e => setTitle1(e.target.value)} placeholder="Ex: Precision Engineering."
-                            className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
-                        />
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Título 1</label>
+                            <input
+                                type="text" required value={title1} onChange={e => setTitle1(e.target.value)} placeholder="Ex: Precision Engineering."
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Título 1 (Japonês)</label>
+                            <input
+                                type="text" value={title1Ja} onChange={e => setTitle1Ja(e.target.value)} placeholder="Ex: 精密なエンジニアリング"
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <label className="block text-sm font-medium text-white mb-1">Título Principal (Linha 2 opcional)</label>
-                        <input
-                            type="text" value={title2} onChange={e => setTitle2(e.target.value)} placeholder="Ex: Timeless Design."
-                            className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
-                        />
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Título 2</label>
+                            <input
+                                type="text" value={title2} onChange={e => setTitle2(e.target.value)} placeholder="Ex: Timeless Design."
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Título 2 (Japonês)</label>
+                            <input
+                                type="text" value={title2Ja} onChange={e => setTitle2Ja(e.target.value)} placeholder="Ex: 時代を超越したデザイン"
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <label className="block text-sm font-medium text-white mb-1">Descrição</label>
-                        <textarea
-                            rows={3} required value={description} onChange={e => setDescription(e.target.value)}
-                            className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
-                        ></textarea>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Descrição</label>
+                            <textarea
+                                rows={3} required value={description} onChange={e => setDescription(e.target.value)}
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                            ></textarea>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Descrição (Japonês)</label>
+                            <textarea
+                                rows={3} value={descriptionJa} onChange={e => setDescriptionJa(e.target.value)}
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                            ></textarea>
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium text-white mb-1">Botão Principal</label>
+                            <label className="block text-sm font-medium text-white mb-1">Botão 1</label>
                             <input
                                 type="text" required value={primaryBtn} onChange={e => setPrimaryBtn(e.target.value)}
                                 className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-white mb-1">Link Botão 1</label>
+                            <label className="block text-sm font-medium text-white mb-1">Botão 1 (Japonês)</label>
                             <input
-                                type="text" value={primaryLink} onChange={e => setPrimaryLink(e.target.value)}
+                                type="text" value={primaryBtnJa} onChange={e => setPrimaryBtnJa(e.target.value)}
                                 className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
                             />
                         </div>
@@ -257,9 +317,26 @@ export default function HeroDashboardClient() {
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium text-white mb-1">Botão Secundário</label>
+                            <label className="block text-sm font-medium text-white mb-1">Botão 2</label>
                             <input
                                 type="text" value={secondaryBtn} onChange={e => setSecondaryBtn(e.target.value)}
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Botão 2 (Japonês)</label>
+                            <input
+                                type="text" value={secondaryBtnJa} onChange={e => setSecondaryBtnJa(e.target.value)}
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Link Botão 1</label>
+                            <input
+                                type="text" value={primaryLink} onChange={e => setPrimaryLink(e.target.value)}
                                 className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
                             />
                         </div>
