@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { MapPin, Clock, MessageCircle } from 'lucide-react';
+import { MapPin, Clock, MessageCircle, Phone } from 'lucide-react';
 
 export function ContactSection() {
     const t = useTranslations('Contact');
@@ -13,8 +13,8 @@ export function ContactSection() {
     const handleWhatsAppSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        // JDM GARAGE Phone Number Placeholder
-        const phoneNumber = "819000000000";
+        // JDM GARAGE Phone Number
+        const phoneNumber = "819017265361";
 
         let text = `*Novo Contato - Site JDM GARAGE*\n\n`;
         if (name) text += `*Nome:* ${name}\n`;
@@ -28,17 +28,17 @@ export function ContactSection() {
     };
 
     return (
-        <section className="py-24 bg-surface-dark relative" id="contact">
+        <section className="py-12 md:py-24 bg-surface-dark relative" id="contact">
             {/* Visual divider */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
 
             <div className="container mx-auto px-4">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
 
                     {/* Left Column: Find Us & Map */}
                     <div>
-                        <div className="bg-surface-card border border-white/5 rounded-2xl p-8 h-full flex flex-col">
-                            <h2 className="text-3xl font-bold text-white mb-8">
+                        <div className="bg-surface-card border border-white/5 rounded-2xl p-6 md:p-8 h-full flex flex-col shadow-xl">
+                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 md:mb-8">
                                 {t('findUs')} <span className="text-brand-red">{t('us')}</span>
                             </h2>
 
@@ -62,6 +62,16 @@ export function ContactSection() {
                                         <p className="text-brand-red text-sm font-semibold mt-1">{t('sundayClosed')}</p>
                                     </div>
                                 </div>
+
+                                <div className="flex items-start gap-4">
+                                    <div className="text-brand-red mt-1">
+                                        <Phone size={24} />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-white font-medium mb-1">{t('phone')}</h4>
+                                        <a href="tel:09017265361" className="text-text-dim hover:text-brand-red transition-colors">090-1726-5361</a>
+                                    </div>
+                                </div>
                             </div>
 
                             <a
@@ -78,11 +88,11 @@ export function ContactSection() {
 
                     {/* Right Column: Contact Form */}
                     <div>
-                        <div className="text-center md:text-left mb-10">
-                            <h2 className="text-3xl font-bold text-white mb-4">
+                        <div className="text-center md:text-left mb-8 md:mb-10 lg:pt-0 pt-10 border-t md:border-t-0 border-white/5 md:pt-0 mt-4 md:mt-0">
+                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
                                 {t('getInTouch')} <span className="text-brand-red">{t('today')}</span>
                             </h2>
-                            <p className="text-text-dim text-lg">
+                            <p className="text-text-dim text-base md:text-lg">
                                 {t('contactSub')}
                             </p>
                         </div>

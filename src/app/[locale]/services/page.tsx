@@ -152,13 +152,12 @@ export default function ServicesPage() {
                         {t('ctaDesc')}
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
-                        <a
-                            href="tel:09017265361"
+                        <Link
+                            href="/contact"
                             className="bg-brand-red hover:bg-white text-white hover:text-brand-red px-10 py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-1 shadow-xl shadow-brand-red/20"
                         >
-                            <Phone size={24} />
-                            090-1726-5361
-                        </a>
+                            {t('ctaButton')}
+                        </Link>
                     </div>
                 </div>
             </div>

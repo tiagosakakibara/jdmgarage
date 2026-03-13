@@ -85,5 +85,24 @@
         "ctaTitle": "Precisa de um serviço específico?",
         "ctaDesc": "Entre em contato conosco para um orçamento personalizado.",
         "ctaButton": "Falar Conosco"
+    },
+    "AboutPage": {
+        "title": "Sobre a JDM Garage",
+        "subtitle": "Nossa paixão por carros japoneses define cada serviço que entregamos.",
+        "storyTitle": "Nossa História",
+        "storyDescription": "Fundada por entusiastas da cultura JDM, a JDM Garage nasceu com a missão de elevar os padrões de excelência automotiva. O que começou como uma simples paixão por ícones das pistas, transformou-se em uma referência de confiança para a comunidade automobilística.",
+        "missionTitle": "Nossa Missão",
+        "missionDescription": "Proporcionar a melhor experiência em compra, venda e manutenção de veículos, unindo a precisão da engenharia japonesa com um atendimento personalizado e transparente.",
+        "valuesTitle": "Nossos Valores",
+        "value1Title": "Qualidade Sem Compromisso",
+        "value1Desc": "Cada ajuste e cada detalhe reflete nosso compromisso inabalável com a perfeição.",
+        "value2Title": "Transparência Total",
+        "value2Desc": "Honestidade é o nosso motor. Você sempre saberá exatamente o estado e os serviços do seu veículo.",
+        "value3Title": "Paixão Automotiva",
+        "value3Desc": "Mais que um negócio, vivemos a cultura dos carros todos os dias, tratando cada veículo como se fosse nosso."
+    },
+    "ContactPage": {
+        "title": "Contato",
+        "subtitle": "Estamos aqui para ajudar com qualquer dúvida sobre nossos veículos ou serviços."
     }
 }
