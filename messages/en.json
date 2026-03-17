@@ -1,0 +1,12 @@
+{
+    "Navbar": {
+        "home": "Home",
+        "inventory": "Inventory",
+        "services": "Services",
+        "about": "About Us",
+        "contact": "Contact"
+    },
+    "Hero": {
+        "title": "Welcome to JDM Garage"
+    }
+}
