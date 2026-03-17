@@ -1,8 +1,11 @@
 "use client";
 
-import { Instagram, Facebook, Twitter, Youtube } from 'lucide-react';
+import { Instagram, Facebook, Twitter, Youtube, ExternalLink } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export function Footer() {
+    const t = useTranslations('Navigation');
+
     return (
         <footer className="bg-black border-t border-white/10 py-12 text-sm text-text-dim">
             <div className="container mx-auto px-4 flex flex-col items-center justify-center gap-8">
@@ -27,7 +30,18 @@ export function Footer() {
 
             <div className="container mx-auto px-4 mt-12 pt-8 border-t border-white/10 flex flex-col items-center justify-center text-center">
                 <p>© {new Date().getFullYear()} JDM GARAGE JAPAN. All rights reserved.</p>
-                <p className="mt-2 text-xs text-white/50">Designed for Performance.</p>
+                <div className="mt-4 flex flex-col items-center gap-2">
+                    <p className="text-xs text-white/50 italic tracking-wider">Designed for Performance.</p>
+                    <a 
+                        href="https://www.nippon-life.com/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-xs text-text-dim hover:text-white transition-all group"
+                    >
+                        <span>{t('nipponLifePartner')}</span>
+                        <ExternalLink size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </a>
+                </div>
             </div>
         </footer>
     );
