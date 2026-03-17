@@ -17,5 +17,5 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
     // Matcher including all supported locales
-    matcher: ['/', '/(pt|ja|en)/:path*', '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)']
+    matcher: ['/', '/(pt|ja)/:path*', '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)']
 };

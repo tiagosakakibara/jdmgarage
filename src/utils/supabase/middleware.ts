@@ -52,9 +52,9 @@ export async function updateSession(request: NextRequest, response: NextResponse
         } = await supabase.auth.getUser()
 
         const pathname = request.nextUrl.pathname;
-        const isDashboardPath = pathname.match(/^\/(pt|ja|en)\/dashboard/);
-        const isLoginPath = pathname.match(/^\/(pt|ja|en)\/login/);
-        const localeMatch = pathname.match(/^\/(pt|ja|en)/);
+        const isDashboardPath = pathname.match(/^\/(pt|ja)\/dashboard/);
+        const isLoginPath = pathname.match(/^\/(pt|ja)\/login/);
+        const localeMatch = pathname.match(/^\/(pt|ja)/);
         const locale = localeMatch ? localeMatch[1] : 'pt';
 
         if (!user && isDashboardPath) {
