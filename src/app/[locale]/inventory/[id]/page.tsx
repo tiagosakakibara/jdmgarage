@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
+import { CarGallery } from '@/components/CarGallery';
 
 interface Car {
     id: string;
@@ -67,7 +68,7 @@ export default async function CarDetailsPage({
         currency: 'JPY',
     }).format(car.price);
 
-    const allImages = [car.featured_image, ...(car.images || [])].filter((img): img is string => !!img);
+    const allImages = Array.from(new Set([car.featured_image, ...(car.images || [])])).filter((img): img is string => !!img);
 
     return (
         <NextIntlClientProvider messages={messages} locale={locale}>
@@ -85,34 +86,7 @@ export default async function CarDetailsPage({
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                         {/* Left Column: Image Gallery */}
                         <div className="lg:col-span-7 flex flex-col gap-6">
-                            <div className="relative aspect-[16/10] bg-surface-dark rounded-2xl overflow-hidden border border-white/5 shadow-2xl">
-                                <Image
-                                    src={car.featured_image || ''}
-                                    alt={`${car.brand} ${car.model}`}
-                                    fill
-                                    priority
-                                    className="object-cover"
-                                />
-                            </div>
-
-                            {/* Thumbnail Grid */}
-                            {allImages.length > 1 && (
-                                <div className="grid grid-cols-4 md:grid-cols-6 gap-4">
-                                    {allImages.map((img, idx) => (
-                                        <div 
-                                            key={idx} 
-                                            className="relative aspect-square rounded-lg overflow-hidden border border-white/10 hover:border-brand-red cursor-pointer transition-colors"
-                                        >
-                                            <Image
-                                                src={img}
-                                                alt={`Thumbnail ${idx}`}
-                                                fill
-                                                className="object-cover"
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
+                            <CarGallery images={allImages} alt={`${car.brand} ${car.model}`} />
 
                             {/* Description Section */}
                             <div className="mt-8 bg-surface-card/30 rounded-2xl p-8 border border-white/5">

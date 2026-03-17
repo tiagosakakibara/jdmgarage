@@ -37,6 +37,11 @@ export default function CarsDashboardClient() {
     const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
+    // Additional images state (7 extra to make total 8)
+    const [extraFiles, setExtraFiles] = useState<(File | null)[]>(new Array(7).fill(null));
+    const [extraPreviewUrls, setExtraPreviewUrls] = useState<(string | null)[]>(new Array(7).fill(null));
+    const [extraImageUrls, setExtraImageUrls] = useState<string[]>(new Array(7).fill(''));
+
     const fetchCars = async () => {
         setLoading(true);
         const { data, error } = await supabase.from('cars').select('*').order('created_at', { ascending: false });
@@ -58,47 +63,54 @@ export default function CarsDashboardClient() {
         return () => URL.revokeObjectURL(url);
     }, [file]);
 
+    // Handle extra previews
+    useEffect(() => {
+        const newUrls = extraFiles.map(f => f ? URL.createObjectURL(f) : null);
+        setExtraPreviewUrls(newUrls);
+        return () => newUrls.forEach(url => url && URL.revokeObjectURL(url));
+    }, [extraFiles]);
+
+    const uploadFile = async (fileToUpload: File) => {
+        const fileExt = fileToUpload.name.split('.').pop() || 'jpg';
+        const fileName = `${Date.now()}-${Math.floor(Math.random() * 1000)}.${fileExt}`;
+        
+        const { error: uploadError } = await supabase.storage
+            .from('cars')
+            .upload(fileName, fileToUpload, {
+                cacheControl: '3600',
+                upsert: false
+            });
+
+        if (uploadError) throw uploadError;
+
+        const { data } = supabase.storage
+            .from('cars')
+            .getPublicUrl(fileName);
+
+        return data?.publicUrl || null;
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
 
         let finalImageUrl = featuredImage;
 
-        if (file) {
-            try {
-                const fileExt = file.name.split('.').pop() || 'jpg';
-                const fileName = `${Date.now()}-${Math.floor(Math.random() * 1000)}.${fileExt}`;
-                
-                const { error: uploadError } = await supabase.storage
-                    .from('cars')
-                    .upload(fileName, file, {
-                        cacheControl: '3600',
-                        upsert: false
-                    });
-
-                if (uploadError) {
-                    console.error('Erro de upload:', uploadError);
-                    alert('Erro ao fazer upload: ' + uploadError.message);
-                    setIsSubmitting(false);
-                    return;
-                }
-
-                const { data } = supabase.storage
-                    .from('cars')
-                    .getPublicUrl(fileName);
-
-                if (data?.publicUrl) {
-                    finalImageUrl = data.publicUrl;
-                } else {
-                    console.error('Não foi possível obter a URL pública');
-                }
-            } catch (err: any) {
-                console.error('Exceção no upload:', err);
-                alert('Erro inesperado no upload: ' + err.message);
-                setIsSubmitting(false);
-                return;
+        try {
+            if (file) {
+                finalImageUrl = await uploadFile(file) || featuredImage;
             }
-        }
+
+            // Process extra images
+            const finalExtraUrls = [...extraImageUrls];
+            for (let i = 0; i < extraFiles.length; i++) {
+                if (extraFiles[i]) {
+                    const uploadedUrl = await uploadFile(extraFiles[i]!);
+                    if (uploadedUrl) finalExtraUrls[i] = uploadedUrl;
+                }
+            }
+
+            const allImages = [finalImageUrl, ...finalExtraUrls].filter(url => !!url);
 
         const carData: any = {
             brand,
@@ -113,6 +125,7 @@ export default function CarsDashboardClient() {
             fuel_type: fuelType,
             engine,
             exterior_color: exteriorColor,
+            images: allImages,
             // Japanese fields
             description_ja: descriptionJa || null,
             transmission_ja: transmissionJa || null,
@@ -139,6 +152,10 @@ export default function CarsDashboardClient() {
                 fetchCars();
             }
         }
+        } catch (err: any) {
+            console.error('Erro no upload ou banco:', err);
+            alert('Ocorreu um erro: ' + err.message);
+        }
         setIsSubmitting(false);
     };
 
@@ -162,6 +179,9 @@ export default function CarsDashboardClient() {
         setExteriorColorJa('');
         setFile(null);
         setPreviewUrl(null);
+        setExtraFiles(new Array(7).fill(null));
+        setExtraPreviewUrls(new Array(7).fill(null));
+        setExtraImageUrls(new Array(7).fill(''));
     };
 
     const handleEdit = (car: Car) => {
@@ -191,6 +211,23 @@ export default function CarsDashboardClient() {
         setFuelTypeJa(car.fuel_type_ja || '');
         // @ts-ignore
         setExteriorColorJa(car.exterior_color_ja || '');
+
+        // Images array handling
+        // @ts-ignore
+        const allImgs = car.images || [];
+        const featuredImg = car.featured_image || allImgs[0] || '';
+        setFeaturedImage(featuredImg);
+        
+        // Populate extra images (images 2-8)
+        const extras = new Array(7).fill('');
+        let extraIdx = 0;
+        allImgs.forEach((img: string) => {
+            if (img !== featuredImg && extraIdx < 7) {
+                extras[extraIdx] = img;
+                extraIdx++;
+            }
+        });
+        setExtraImageUrls(extras);
         
         // Scroll to form
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -346,16 +383,19 @@ export default function CarsDashboardClient() {
                             className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-red file:text-white hover:file:bg-rose-700"
                         />
                         
-                        {previewUrl && (
-                            <div className="mt-2 relative w-full h-40 rounded-lg overflow-hidden border border-white/10">
-                                <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
-                                <button 
-                                    type="button"
-                                    onClick={() => setFile(null)}
-                                    className="absolute top-2 right-2 bg-black/50 hover:bg-black/80 text-white p-1 rounded-full transition-colors"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                </button>
+                        {/* Preview of current or new image */}
+                        {(previewUrl || featuredImage) && (
+                            <div className="mt-2 relative w-full h-40 rounded-lg overflow-hidden border border-white/10 bg-black/20">
+                                <img src={previewUrl || featuredImage} alt="Preview" className="w-full h-full object-contain" />
+                                {file && (
+                                    <button 
+                                        type="button"
+                                        onClick={() => setFile(null)}
+                                        className="absolute top-2 right-2 bg-black/50 hover:bg-black/80 text-white p-1 rounded-full transition-colors"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    </button>
+                                )}
                             </div>
                         )}
 
@@ -363,8 +403,61 @@ export default function CarsDashboardClient() {
                         <input
                             type="text" value={featuredImage} onChange={e => setFeaturedImage(e.target.value)}
                             className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red mt-1"
-                            placeholder="/images/cars/foto.jpg"
+                            placeholder="URL da Imagem de Capa"
                         />
+                    </div>
+
+                    <div className="pt-4 border-t border-white/5 mt-4 space-y-6">
+                        <h3 className="text-white font-bold text-sm uppercase tracking-widest">Imagens Adicionais (Mais 7)</h3>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {[0, 1, 2, 3, 4, 5, 6].map((idx) => (
+                                <div key={idx} className="space-y-2 p-3 bg-surface-dark/50 rounded-xl border border-white/5">
+                                    <label className="block text-xs font-medium text-text-dim">Foto {idx + 2}</label>
+                                    <input
+                                        type="file" accept="image/*" 
+                                        onChange={e => {
+                                            const newFiles = [...extraFiles];
+                                            newFiles[idx] = e.target.files?.[0] || null;
+                                            setExtraFiles(newFiles);
+                                        }}
+                                        className="w-full text-xs text-text-dim file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-white/10 file:text-white hover:file:bg-white/20"
+                                    />
+                                    {(extraPreviewUrls[idx] || extraImageUrls[idx]) && (
+                                        <div className="mt-2 relative w-20 h-20 rounded-lg overflow-hidden border border-white/10 bg-black/20">
+                                            <img 
+                                                src={extraPreviewUrls[idx] || extraImageUrls[idx]} 
+                                                alt={`Preview ${idx + 2}`} 
+                                                className="w-full h-full object-contain" 
+                                            />
+                                            {extraFiles[idx] && (
+                                                <button 
+                                                    type="button"
+                                                    onClick={() => {
+                                                        const newFiles = [...extraFiles];
+                                                        newFiles[idx] = null;
+                                                        setExtraFiles(newFiles);
+                                                    }}
+                                                    className="absolute top-1 right-1 bg-black/50 p-0.5 rounded-full text-white"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                </button>
+                                            )}
+                                        </div>
+                                    )}
+                                    <input
+                                        type="text" value={extraImageUrls[idx]} 
+                                        onChange={e => {
+                                            const newUrls = [...extraImageUrls];
+                                            newUrls[idx] = e.target.value;
+                                            setExtraImageUrls(newUrls);
+                                        }}
+                                        className="w-full bg-surface-dark border border-white/10 rounded-lg px-3 py-1.5 text-white outline-none focus:border-brand-red text-xs"
+                                        placeholder={`URL da Foto ${idx + 2}`}
+                                    />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-white mb-1">Descrição (PT/EN)</label>
