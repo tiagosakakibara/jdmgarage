@@ -21,7 +21,7 @@ export function CarCard({ car }: CarCardProps) {
     }).format(car.price);
 
     return (
-        <Link href="/inventory" className="bg-surface-card border border-white/5 rounded-xl overflow-hidden group hover:border-brand-red/50 transition-colors flex flex-col h-full cursor-pointer">
+        <Link href={`/inventory/${car.id}`} className="bg-surface-card border border-white/5 rounded-xl overflow-hidden group hover:border-brand-red/50 transition-colors flex flex-col h-full cursor-pointer">
             <div className="relative h-48 w-full bg-surface-dark overflow-hidden">
                 {car.featured_image ? (
                     <NextImage
@@ -43,10 +43,10 @@ export function CarCard({ car }: CarCardProps) {
 
                 <div className="mt-auto flex items-center justify-between border-t border-white/5 pt-4">
                     <div className="text-brand-red font-bold text-lg">{formattedPrice}</div>
-                    <button className="text-text-dim hover:text-white transition-colors text-sm font-medium flex items-center gap-2">
+                    <span className="text-text-dim group-hover:text-brand-red transition-colors text-sm font-medium flex items-center gap-2">
                         {t('viewDetails')}
-                        <span>→</span>
-                    </button>
+                        <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </span>
                 </div>
             </div>
         </Link>

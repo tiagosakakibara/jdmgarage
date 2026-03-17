@@ -14,6 +14,7 @@ export default function CarsDashboardClient() {
     const supabase = createClient();
 
     // Form inputs
+    const [editingCarId, setEditingCarId] = useState<string | null>(null);
     const [brand, setBrand] = useState('');
     const [model, setModel] = useState('');
     const [year, setYear] = useState('');
@@ -21,6 +22,17 @@ export default function CarsDashboardClient() {
     const [description, setDescription] = useState('');
     const [featuredImage, setFeaturedImage] = useState('');
     const [status, setStatus] = useState('available');
+    const [transmission, setTransmission] = useState('Manual');
+    const [mileage, setMileage] = useState('');
+    const [fuelType, setFuelType] = useState('Gasolina');
+    const [engine, setEngine] = useState('');
+    const [exteriorColor, setExteriorColor] = useState('');
+    
+    // Japanese fields
+    const [descriptionJa, setDescriptionJa] = useState('');
+    const [transmissionJa, setTransmissionJa] = useState('');
+    const [fuelTypeJa, setFuelTypeJa] = useState('');
+    const [exteriorColorJa, setExteriorColorJa] = useState('');
 
     const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -88,7 +100,7 @@ export default function CarsDashboardClient() {
             }
         }
 
-        const newCar: CarInsert = {
+        const carData: any = {
             brand,
             model,
             year: parseInt(year),
@@ -96,26 +108,92 @@ export default function CarsDashboardClient() {
             description,
             featured_image: finalImageUrl || null,
             status,
+            transmission,
+            mileage: mileage ? parseInt(mileage) : null,
+            fuel_type: fuelType,
+            engine,
+            exterior_color: exteriorColor,
+            // Japanese fields
+            description_ja: descriptionJa || null,
+            transmission_ja: transmissionJa || null,
+            fuel_type_ja: fuelTypeJa || null,
+            exterior_color_ja: exteriorColorJa || null,
         };
 
-        const { error } = await supabase.from('cars').insert(newCar);
-
-        if (error) {
-            alert('Erro ao adicionar carro: ' + error.message);
+        if (editingCarId) {
+            const { error } = await supabase.from('cars').update(carData).eq('id', editingCarId);
+            if (error) {
+                alert('Erro ao atualizar carro: ' + error.message);
+            } else {
+                alert('Carro atualizado com sucesso!');
+                resetForm();
+                fetchCars();
+            }
         } else {
-            alert('Carro adicionado com sucesso!');
-            // clear form
-            setBrand('');
-            setModel('');
-            setYear('');
-            setPrice('');
-            setDescription('');
-            setFeaturedImage('');
-            setFile(null);
-            // refresh
-            fetchCars();
+            const { error } = await supabase.from('cars').insert(carData as CarInsert);
+            if (error) {
+                alert('Erro ao adicionar carro: ' + error.message);
+            } else {
+                alert('Carro adicionado com sucesso!');
+                resetForm();
+                fetchCars();
+            }
         }
         setIsSubmitting(false);
+    };
+
+    const resetForm = () => {
+        setEditingCarId(null);
+        setBrand('');
+        setModel('');
+        setYear('');
+        setPrice('');
+        setDescription('');
+        setFeaturedImage('');
+        setStatus('available');
+        setTransmission('Manual');
+        setMileage('');
+        setFuelType('Gasolina');
+        setEngine('');
+        setExteriorColor('');
+        setDescriptionJa('');
+        setTransmissionJa('');
+        setFuelTypeJa('');
+        setExteriorColorJa('');
+        setFile(null);
+        setPreviewUrl(null);
+    };
+
+    const handleEdit = (car: Car) => {
+        setEditingCarId(car.id);
+        setBrand(car.brand);
+        setModel(car.model);
+        setYear(car.year.toString());
+        setPrice(car.price.toString());
+        setDescription(car.description || '');
+        setFeaturedImage(car.featured_image || '');
+        setStatus(car.status || 'available');
+        // @ts-ignore - Handle new columns before type regeneration
+        setTransmission(car.transmission || 'Manual');
+        // @ts-ignore
+        setMileage(car.mileage?.toString() || '');
+        // @ts-ignore
+        setFuelType(car.fuel_type || 'Gasolina');
+        // @ts-ignore
+        setEngine(car.engine || '');
+        // @ts-ignore
+        setExteriorColor(car.exterior_color || '');
+        // @ts-ignore
+        setDescriptionJa(car.description_ja || '');
+        // @ts-ignore
+        setTransmissionJa(car.transmission_ja || '');
+        // @ts-ignore
+        setFuelTypeJa(car.fuel_type_ja || '');
+        // @ts-ignore
+        setExteriorColorJa(car.exterior_color_ja || '');
+        
+        // Scroll to form
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const handleDelete = async (id: string) => {
@@ -149,8 +227,20 @@ export default function CarsDashboardClient() {
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Form Section */}
-            <div className="lg:col-span-1 bg-surface-card border border-white/5 p-6 rounded-2xl">
-                <h2 className="text-xl font-bold text-white mb-6">Cadastrar Novo Carro</h2>
+            <div className="lg:col-span-1 bg-surface-card border border-white/5 p-6 rounded-2xl h-fit">
+                <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-xl font-bold text-white">
+                        {editingCarId ? 'Editar Veículo' : 'Cadastrar Novo Carro'}
+                    </h2>
+                    {editingCarId && (
+                        <button 
+                            onClick={resetForm}
+                            className="text-xs text-brand-red hover:underline"
+                        >
+                            Cancelar Edição
+                        </button>
+                    )}
+                </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
@@ -183,16 +273,71 @@ export default function CarsDashboardClient() {
                             />
                         </div>
                     </div>
-                    <div>
-                        <label className="block text-sm font-medium text-white mb-1">Status</label>
-                        <select
-                            value={status} onChange={e => setStatus(e.target.value)}
-                            className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
-                        >
-                            <option value="available">Disponível</option>
-                            <option value="sold">Vendido</option>
-                            <option value="reserved">Reservado</option>
-                        </select>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Status</label>
+                            <select
+                                value={status} onChange={e => setStatus(e.target.value)}
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                            >
+                                <option value="available">Disponível</option>
+                                <option value="sold">Vendido</option>
+                                <option value="reserved">Reservado</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Quilometragem (km)</label>
+                            <input
+                                type="number" value={mileage} onChange={e => setMileage(e.target.value)}
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                                placeholder="Ex: 50000"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Câmbio</label>
+                            <select
+                                value={transmission} onChange={e => setTransmission(e.target.value)}
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                            >
+                                <option value="Manual">Manual</option>
+                                <option value="Automático">Automático</option>
+                                <option value="Semi-Automático">Semi-Automático</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Combustível</label>
+                            <select
+                                value={fuelType} onChange={e => setFuelType(e.target.value)}
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                            >
+                                <option value="Gasolina">Gasolina</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Híbrido">Híbrido</option>
+                                <option value="Elétrico">Elétrico</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Motor</label>
+                            <input
+                                type="text" value={engine} onChange={e => setEngine(e.target.value)}
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                                placeholder="Ex: 3.0L L6 Turbo"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-white mb-1">Cor Exterior</label>
+                            <input
+                                type="text" value={exteriorColor} onChange={e => setExteriorColor(e.target.value)}
+                                className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                                placeholder="Ex: Arctic White"
+                            />
+                        </div>
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-white mb-1">Upload da Imagem</label>
@@ -222,19 +367,54 @@ export default function CarsDashboardClient() {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-white mb-1">Descrição</label>
+                        <label className="block text-sm font-medium text-white mb-1">Descrição (PT/EN)</label>
                         <textarea
                             rows={3} value={description} onChange={e => setDescription(e.target.value)}
                             className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red"
+                            placeholder="Descrição em português ou inglês..."
                         ></textarea>
+                    </div>
+
+                    <div className="pt-4 border-t border-white/5 mt-4">
+                        <h3 className="text-brand-red font-bold text-sm mb-4 uppercase tracking-widest">Dados em Japonês (Opcional)</h3>
+                        
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-xs font-medium text-text-dim mb-1">Descrição (JA)</label>
+                                <textarea
+                                    rows={3} value={descriptionJa} onChange={e => setDescriptionJa(e.target.value)}
+                                    className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red text-sm"
+                                    placeholder="日本語の説明..."
+                                ></textarea>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs font-medium text-text-dim mb-1">Câmbio (JA)</label>
+                                    <input
+                                        type="text" value={transmissionJa} onChange={e => setTransmissionJa(e.target.value)}
+                                        className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red text-sm"
+                                        placeholder="例: マニュアル"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-medium text-text-dim mb-1">Cor Interior/Ext (JA)</label>
+                                    <input
+                                        type="text" value={exteriorColorJa} onChange={e => setExteriorColorJa(e.target.value)}
+                                        className="w-full bg-surface-dark border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-brand-red text-sm"
+                                        placeholder="例: ホワイト"
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full bg-brand-red hover:bg-rose-700 text-white font-medium py-3 rounded-lg transition-colors disabled:opacity-50"
+                        className="w-full bg-brand-red hover:bg-rose-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg active:scale-[0.98] disabled:opacity-50"
                     >
-                        {isSubmitting ? 'Salvando...' : 'Adicionar Veículo'}
+                        {isSubmitting ? 'Processando...' : (editingCarId ? 'Atualizar Dados do Veículo' : 'Adicionar Veículo ao Estoque')}
                     </button>
                 </form>
             </div>
@@ -262,12 +442,20 @@ export default function CarsDashboardClient() {
                                         <p className="text-sm text-text-dim">Status: {car.status} | ¥ {car.price}</p>
                                     </div>
                                 </div>
-                                <button
-                                    onClick={() => handleDelete(car.id)}
-                                    className="text-red-500 hover:text-red-400 text-sm border border-red-500/20 hover:border-red-500/50 px-3 py-1 rounded transition-colors"
-                                >
-                                    Remover
-                                </button>
+                                    <div className="flex gap-2">
+                                        <button
+                                            onClick={() => handleEdit(car)}
+                                            className="text-white hover:bg-white/10 text-xs border border-white/10 px-3 py-1.5 rounded-lg transition-colors"
+                                        >
+                                            Editar
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(car.id)}
+                                            className="text-red-500 hover:bg-red-500/10 text-xs border border-red-500/20 px-3 py-1.5 rounded-lg transition-colors"
+                                        >
+                                            Remover
+                                        </button>
+                                    </div>
                             </div>
                         ))}
                         {cars.length === 0 && (
