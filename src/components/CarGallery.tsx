@@ -41,14 +41,14 @@ export function CarGallery({ images, alt }: { images: string[]; alt: string }) {
                     <>
                         <button
                             onClick={handlePrevious}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/30 backdrop-blur-md border border-white/10 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-brand-red hover:scale-110 z-20"
+                            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white lg:opacity-0 lg:group-hover:opacity-100 transition-all hover:bg-brand-red hover:scale-110 z-20 shadow-xl"
                             aria-label="Previous image"
                         >
                             <ChevronLeft size={24} />
                         </button>
                         <button
                             onClick={handleNext}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/30 backdrop-blur-md border border-white/10 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-brand-red hover:scale-110 z-20"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white lg:opacity-0 lg:group-hover:opacity-100 transition-all hover:bg-brand-red hover:scale-110 z-20 shadow-xl"
                             aria-label="Next image"
                         >
                             <ChevronRight size={24} />

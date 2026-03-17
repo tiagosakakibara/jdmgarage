@@ -52,20 +52,20 @@ export function CarCard({ car }: CarCardProps) {
                             key={allImages[currentImageIndex]}
                         />
                         
-                        {/* Interactive Arrows on Hover */}
+                        {/* Interactive Arrows - Visible on mobile by default, hover on desktop */}
                         {allImages.length > 1 && (
-                            <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div className="absolute inset-0 flex items-center justify-between px-2 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                                 <button 
                                     onClick={handlePrev}
-                                    className="p-1.5 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-brand-red transition-colors border border-white/10"
+                                    className="p-1.5 rounded-full bg-black/50 backdrop-blur-md text-white hover:bg-brand-red transition-colors border border-white/10 pointer-events-auto shadow-lg"
                                 >
-                                    <ChevronLeft size={18} />
+                                    <ChevronLeft size={20} />
                                 </button>
                                 <button 
                                     onClick={handleNext}
-                                    className="p-1.5 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-brand-red transition-colors border border-white/10"
+                                    className="p-1.5 rounded-full bg-black/50 backdrop-blur-md text-white hover:bg-brand-red transition-colors border border-white/10 pointer-events-auto shadow-lg"
                                 >
-                                    <ChevronRight size={18} />
+                                    <ChevronRight size={20} />
                                 </button>
                             </div>
                         )}
