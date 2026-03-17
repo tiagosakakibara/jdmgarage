@@ -122,7 +122,7 @@ export function HeroSlider({ slides = DEFAULT_SLIDES, locale = 'pt' }: HeroSlide
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
                         backgroundImage: `url(${currentSlide.image})`,
-                        backgroundPosition: 'center 60%',
+                        backgroundPosition: 'center bottom',
                         imageRendering: 'crisp-edges',
                         transform: 'translateZ(0)'
                     }}
@@ -160,7 +160,7 @@ export function HeroSlider({ slides = DEFAULT_SLIDES, locale = 'pt' }: HeroSlide
                                                 width: `${SLICES_COUNT * 100}%`,
                                                 left: `${-i * 100}%`,
                                                 backgroundImage: `url(${nextSlideData.image})`,
-                                                backgroundPosition: 'center 60%',
+                                                backgroundPosition: 'center bottom',
                                                 imageRendering: 'crisp-edges',
                                                 transform: 'translateZ(0)'
                                             }}
