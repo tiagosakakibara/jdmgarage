@@ -1,12 +1,108 @@
 {
-    "Navbar": {
-        "home": "Home",
-        "inventory": "Inventory",
-        "services": "Services",
-        "about": "About Us",
-        "contact": "Contact"
-    },
     "Hero": {
-        "title": "Welcome to JDM Garage"
+        "title1": "Precision Engineering.",
+        "title2": "Timeless Design."
+    },
+    "Navigation": {
+        "top": "Top",
+        "services": "Services",
+        "carSales": "Buy and Sell",
+        "company": "About Us",
+        "contact": "Contact",
+        "getQuote": "Get Quote"
+    },
+    "Services": {
+        "heading_pt1": "Automotive Services &",
+        "heading_pt2": "Buy and Sell",
+        "subtitle": "We take care of your car with excellence. Trust, transparency, and perfection are the foundations of our work.",
+        "shaken": {
+            "title": "Shaken Inspection",
+            "description": "Mandatory inspection in Japan."
+        },
+        "maintenance": {
+            "title": "Maintenance",
+            "description": "Maintenance, bodywork and painting, vitrification, etc."
+        },
+        "customization": {
+            "title": "Customization",
+            "description": "Custom modifications and improvements."
+        }
+    },
+    "Contact": {
+        "findUs": "Find",
+        "us": "Us",
+        "address": "8-1-1 Tsuzuki, Yokohama, Kanagawa, Japan",
+        "hours": "Monday - Saturday, 10:00 - 19:00",
+        "sundayClosed": "Sunday Closed",
+        "openMaps": "Open in Google Maps",
+        "getInTouch": "Get In Touch",
+        "today": "Today",
+        "contactSub": "Have a question about one of our cars or need a service quote? Contact us.",
+        "fullName": "Full Name",
+        "email": "Email Address",
+        "phone": "Phone Number",
+        "message": "Your Message",
+        "send": "Send Message",
+        "whatsapp": "Or send us a message directly on WhatsApp"
+    },
+    "Inventory": {
+        "title": "Car Sales",
+        "subtitle": "Selected luxury and performance vehicles.",
+        "filters": {
+            "make": "Make",
+            "model": "Model",
+            "year": "Year",
+            "all": "All"
+        },
+        "viewDetails": "View",
+        "noCars": "No vehicles found."
+    },
+    "InventoryPage": {
+        "title": "Buy and Sell",
+        "subtitle": "Find the perfect vehicle for your lifestyle.",
+        "sellYourCar": "Want to sell your car?",
+        "sellYourCarDesc": "We offer the best market valuation. Contact us for a no-obligation quote.",
+        "contactUs": "Talk to Us"
+    },
+    "ServicesPage": {
+        "title": "Our Services",
+        "subtitle": "Automotive excellence in every detail. From basic maintenance to high-level customization.",
+        "shaken": {
+            "title": "Shaken Inspection",
+            "description": "We handle the entire Japanese mandatory inspection process (Shaken). Our team ensures your vehicle meets all legal safety and emissions requirements.",
+            "features": ["Detailed pre-inspection", "Technical adjustments", "Certificate issuance", "Transport to the inspection center"]
+        },
+        "maintenance": {
+            "title": "Maintenance & Repairs",
+            "description": "Complete mechanical services to keep your car in perfect condition. We use state-of-the-art equipment for precise diagnostics.",
+            "features": ["Oil and filter changes", "High-quality bodywork and painting", "General Mechanics", "Computerized Diagnostics"]
+        },
+        "customization": {
+            "title": "Customization & Performance",
+            "description": "We transform your vehicle according to your vision. Specialists in JDM tuning and performance upgrades.",
+            "features": ["Suspension Modifications", "Engine Upgrades", "Aesthetic Kits", "Vitrification and Detailing"]
+        },
+        "ctaTitle": "Need a specific service?",
+        "ctaDesc": "Contact us for a personalized quote.",
+        "ctaButton": "Contact Us"
+    },
+    "AboutPage": {
+        "title": "About JDM Garage",
+        "subtitle": "Our passion for Japanese cars defines every service we deliver.",
+        "storyTitle": "Our History",
+        "storyDescription": "Founded by enthusiasts of JDM culture, JDM Garage was born with the mission to raise the standards of automotive excellence. What began as a simple passion for track icons turned into a reference of trust for the automotive community.",
+        "missionTitle": "Our Mission",
+        "missionDescription": "To provide the best experience in buying, selling, and maintaining vehicles, combining the precision of Japanese engineering with personalized and transparent service.",
+        "valuesTitle": "Our Values",
+        "value1Title": "Quality Without Compromise",
+        "value1Desc": "Every adjustment and every detail reflects our unwavering commitment to perfection.",
+        "value2Title": "Total Transparency",
+        "value2Desc": "Honesty is our engine. You will always know exactly the state and services of your vehicle.",
+        "value3Title": "Automotive Passion",
+        "value3Desc": "More than a business, we live car culture every day, treating every vehicle as if it were our own."
+    },
+    "ContactPage": {
+        "title": "Contact",
+        "subtitle": "We are here to help with any questions about our vehicles or services."
     }
 }
