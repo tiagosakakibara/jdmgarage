@@ -109,7 +109,7 @@ export function HeroSlider({ slides = DEFAULT_SLIDES, locale = 'pt' }: HeroSlide
 
     return (
         <section className={`w-full bg-black flex justify-center border-b border-surface-card bg-surface-dark/20 ${isJa ? 'font-noto' : ''}`}>
-            <div 
+            <div
                 onClick={() => currentSlide.primaryLink && router.push(currentSlide.primaryLink as any)}
                 className={`relative w-full max-w-[1504px] overflow-hidden bg-black flex items-center justify-center transition-all duration-500 h-[280px] md:h-auto md:aspect-[1504/640] ${currentSlide.primaryLink ? 'cursor-pointer' : 'cursor-default'}`}
                 onMouseEnter={() => setIsHovered(true)}
@@ -122,7 +122,7 @@ export function HeroSlider({ slides = DEFAULT_SLIDES, locale = 'pt' }: HeroSlide
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
                         backgroundImage: `url(${currentSlide.image})`,
-                        backgroundPosition: 'center 50%',
+                        backgroundPosition: 'center 60%',
                         imageRendering: 'crisp-edges',
                         transform: 'translateZ(0)'
                     }}
@@ -160,7 +160,7 @@ export function HeroSlider({ slides = DEFAULT_SLIDES, locale = 'pt' }: HeroSlide
                                                 width: `${SLICES_COUNT * 100}%`,
                                                 left: `${-i * 100}%`,
                                                 backgroundImage: `url(${nextSlideData.image})`,
-                                                backgroundPosition: 'center 50%',
+                                                backgroundPosition: 'center 60%',
                                                 imageRendering: 'crisp-edges',
                                                 transform: 'translateZ(0)'
                                             }}

@@ -16,7 +16,6 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-    // Match only internationalized pathnames
-    // Add other matcher patterns as needed for images, api, etc.
-    matcher: ['/', '/(pt|ja)/:path*', '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)']
+    // Matcher including all supported locales
+    matcher: ['/', '/(pt|ja|en)/:path*', '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)']
 };
