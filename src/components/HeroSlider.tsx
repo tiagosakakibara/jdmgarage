@@ -111,7 +111,7 @@ export function HeroSlider({ slides = DEFAULT_SLIDES, locale = 'pt' }: HeroSlide
         <section className={`w-full bg-black flex justify-center border-b border-surface-card bg-surface-dark/20 ${isJa ? 'font-noto' : ''}`}>
             <div
                 onClick={() => currentSlide.primaryLink && router.push(currentSlide.primaryLink as any)}
-                className={`relative w-full max-w-[1504px] overflow-hidden bg-black flex items-center justify-center transition-all duration-500 h-[280px] md:h-auto md:aspect-[1504/640] ${currentSlide.primaryLink ? 'cursor-pointer' : 'cursor-default'}`}
+                className={`relative w-full max-w-[1504px] overflow-hidden bg-black flex items-center justify-center transition-all duration-500 h-[168px] md:h-auto md:aspect-[1504/384] ${currentSlide.primaryLink ? 'cursor-pointer' : 'cursor-default'}`}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onTouchStart={handleTouchStart}

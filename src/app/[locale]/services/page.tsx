@@ -75,7 +75,7 @@ export default function ServicesPage() {
     return (
         <div className="min-h-screen bg-black pb-20">
             {/* Hero Section */}
-            <div className="relative h-[400px] flex items-center justify-center overflow-hidden">
+            <div className="relative h-[240px] flex items-center justify-center overflow-hidden">
                 <div 
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
                     style={{ 

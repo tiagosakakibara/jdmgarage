@@ -52,7 +52,7 @@ export function HeroSimple({ slides, locale = 'pt' }: HeroSimpleProps) {
     };
 
     return (
-        <section className={`relative h-[400px] md:h-[560px] flex items-center justify-center overflow-hidden bg-black text-center ${isJa ? 'font-noto' : ''}`}>
+        <section className={`relative h-[240px] md:h-[336px] flex items-center justify-center overflow-hidden bg-black text-center ${isJa ? 'font-noto' : ''}`}>
             {/* Background Image - Adjusted vertical position to show the car more */}
             <div 
                 className="absolute inset-0 bg-cover bg-[center_75%] bg-no-repeat z-0"
