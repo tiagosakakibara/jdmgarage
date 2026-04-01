@@ -3,7 +3,7 @@
 import { useLocale } from 'next-intl';
 import { usePathname, useRouter } from '@/i18n/routing';
 import { useTransition } from 'react';
-import { Globe } from 'lucide-react';
+// Globe has been replaced with emoji flags below.
 
 export function LanguageSwitcher() {
     const locale = useLocale();
@@ -25,8 +25,9 @@ export function LanguageSwitcher() {
             className="flex items-center gap-2 text-text-dim hover:text-white transition-colors p-2 text-sm font-medium"
             title="Mudar Idioma / 言語を変更"
         >
-            <Globe size={18} />
-            <span>{locale === 'pt' ? 'PT' : '日本語'}</span>
+            <span className="flex items-center gap-1.5">
+                {locale === 'pt' ? '🇯🇵 日本語' : '🇵🇹 PT'}
+            </span>
         </button>
     );
 }

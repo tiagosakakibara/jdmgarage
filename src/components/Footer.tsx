@@ -1,6 +1,6 @@
 "use client";
 
-import { Instagram, Facebook, Twitter, Youtube, ExternalLink } from 'lucide-react';
+import { Instagram, Facebook, Youtube, ExternalLink } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export function Footer() {
@@ -18,9 +18,7 @@ export function Footer() {
                         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface-card flex items-center justify-center hover:bg-brand-red hover:text-white transition-all text-text-dim">
                             <Facebook size={20} />
                         </a>
-                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface-card flex items-center justify-center hover:bg-brand-red hover:text-white transition-all text-text-dim">
-                            <Twitter size={20} />
-                        </a>
+
                         <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface-card flex items-center justify-center hover:bg-brand-red hover:text-white transition-all text-text-dim">
                             <Youtube size={20} />
                         </a>
