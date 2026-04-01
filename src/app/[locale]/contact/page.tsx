@@ -9,7 +9,7 @@ export default function ContactPage() {
     return (
         <div className="min-h-screen bg-black">
             {/* Hero Section */}
-            <div className="relative h-[240px] md:h-[300px] flex items-center justify-center overflow-hidden">
+            <div className="relative h-[144px] md:h-[180px] flex items-center justify-center overflow-hidden">
                 <div 
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
                     style={{ 
